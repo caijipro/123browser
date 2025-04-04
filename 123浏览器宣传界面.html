@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>123浏览器 - 纯净无广告的上网体验</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #4285f4;
+            --primary-dark: #3367d6;
+            --secondary: #34a853;
+            --accent: #ea4335;
+            --light: #f8f9fa;
+            --dark: #202124;
+            --gray: #5f6368;
+            --light-gray: #dadce0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .download-btn {
+            background-color: var(--primary);
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500 !important;
+            transition: background-color 0.3s;
+        }
+        
+        .download-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 180px 0 100px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .hero h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 特性部分 */
+        .features {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h3 {
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h4 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .feature-card p {
+            color: var(--gray);
+        }
+        
+        /* 浏览器截图部分 */
+        .screenshot {
+            background-color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .screenshot-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .screenshot-item {
+            max-width: 350px;
+            text-align: center;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .screenshot-item h4 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: var(--dark);
+        }
+
+        .screenshot-item img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .screenshot-item img:hover {
+            transform: scale(1.03);
+        }
+
+        /* 下载部分 */
+        .download {
+            background-color: var(--light);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .download-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .download-option {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            width: 280px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .download-option img {
+            height: 60px;
+            margin-bottom: 20px;
+        }
+
+        .download-option h4 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        /* 感谢名单部分 */
+        .thanks {
+            background-color: white;
+            padding: 100px 0;
+        }
+
+        .thanks-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .thanks-column h4 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .thanks-list {
+            list-style: none;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .thanks-list li {
+            margin-bottom: 10px;
+            break-inside: avoid;
+        }
+
+        .thanks-list a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .thanks-list a:hover {
+            text-decoration: underline;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--light-gray);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #bdc1c6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bdc1c6;
+            font-size: 14px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 10px;
+            }
+
+            .thanks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .thanks-list {
+                columns: 1;
+            }
+
+            .screenshot-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="https://123llq.com/static/homepage/homepage-header.png" alt="123浏览器logo">
+                    <h1>123浏览器</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">特性</a></li>
+                    <li><a href="#screenshot">截图</a></li>
+                    <li><a href="#download">下载</a></li>
+                    <li><a href="#thanks">感谢</a></li>
+                    <li><a href="https://download.llqdev.com/2.3.1.8_mini_installer.exe" class="download-btn">立即下载</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>纯净、高效的上网体验</h2>
+            <p>123浏览器基于Chromium打造，提供无广告干扰的浏览环境，独家开始页和视频嗅探功能，让您的上网体验更上一层楼。</p>
+            <div class="hero-btns">
+                <a href="#download" class="btn btn-primary">免费下载</a>
+                <a href="#features" class="btn btn-secondary">了解更多</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h3>为什么选择123浏览器？</h3>
+                <p>我们专注于提供最纯净、最高效的浏览体验</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚫</div>
+                    <h4>纯净无广告</h4>
+                    <p>彻底告别烦人的广告和弹窗，专注于您真正需要的内容，享受清爽的上网体验。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h4>独家开始页</h4>
+                    <p>精心设计的开始页面，快速访问常用网站，个性化布局，让您的工作更高效。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎬</div>
+                    <h4>视频嗅探功能</h4>
+                    <p>自动检测网页中的视频内容，提供便捷的下载和播放选项，视频体验更上一层楼。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏺️</div>
+                    <h4>视频录制</h4>
+                    <p>方便的一键录制网页上的直播或者在线视频。搭配油猴脚本，获取下载无限的在线视频。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h4>网页翻译</h4>
+                    <p>双重保障技术确保稳定的Google翻译接口，多种语言之间网页翻译。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛒</div>
+                    <h4>应用市场</h4>
+                    <p>完美支持在Edge浏览器的应用市场安装扩展。精选浏览器扩展，一键安装，实现浏览器的无限功能。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📜</div>
+                    <h4>浏览器脚本</h4>
+                    <p>浏览器脚本自动化操作，改善上网体验，增加浏览器的功能。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h4>阅读模式</h4>
+                    <p>专注于网页文章的正文，清爽没有干扰，沉浸式阅读。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖱️</div>
+                    <h4>鼠标手势</h4>
+                    <p>方便，快捷的鼠标手势，让您的操作更加高效。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔵</div>
+                    <h4>支持 Google 账号</h4>
+                    <p>支持登录Google账号，畅享书签、扩展等数据同步服务。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💚</div>
+                    <h4>支持绿色便携版</h4>
+                    <p>程序和数据放在同一个目录下面，可以方便的拷贝整个目录把浏览器转移到任何地方。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h4>定制化浏览器</h4>
+                    <p>支持自定义浏览器的名称和桌面图标。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshot" id="screenshot">
+        <div class="container">
+            <div class="section-title">
+                <h3>123浏览器界面展示</h3>
+                <p>简洁直观的设计，提升您的浏览效率</p>
+            </div>
+            <div class="screenshot-container">
+                <div class="screenshot-item">
+                    <h4>欢迎使用</h4>
+                    <img src="https://pic1.imgdb.cn/item/67ef57440ba3d5a1d7ecb695.png" alt="123浏览器欢迎界面">
+                </div>
+                <div class="screenshot-item" style="animation-delay: 0.5s;">
+                    <h4>直接支持登录谷歌账号，无需特殊网络环境</h4>
+                    <img src="https://pic1.imgdb.cn/item/67ef573f0ba3d5a1d7ecb694.png" alt="123浏览器谷歌账号登录">
+                </div>
+                <div class="screenshot-item" style="animation-delay: 1s;">
+                    <h4>支持三大知名扩展商店，体验升级</h4>
+                    <img src="https://pic1.imgdb.cn/item/67ef573b0ba3d5a1d7ecb68d.png" alt="123浏览器扩展商店支持">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download" id="download">
+        <div class="container">
+            <div class="section-title">
+                <h3>立即下载123浏览器</h3>
+                <p>适用于Windows系统，免费且易于安装</p>
+            </div>
+            <div class="download-options">
+                <div class="download-option">
+                    <img src="https://vip.jokerps.com/wp-content/uploads/2021/11/win11.png" alt="Windows">
+                    <h4>Windows</h4>
+                    <p>支持Windows 7/8/10/11</p>
+                    <a href="https://download.llqdev.com/2.3.1.8_mini_installer.exe" class="btn btn-primary" style="display: inline-block; margin-top: 15px;">下载</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="thanks" id="thanks">
+        <div class="container">
+            <div class="section-title">
+                <h3>感谢名单</h3>
+                <p>123浏览器的发展离不开大家的支持</p>
+            </div>
+            <div class="thanks-grid">
+                <div class="thanks-column">
+                    <h4>感谢以下网友</h4>
+                    <ul class="thanks-list">
+                        <li>苏联大元帅斯大林同志</li>
+                        <li>*歌</li>
+                        <li>老夜</li>
+                        <li>9zhmke</li>
+                        <li>眉山老吴</li>
+                        <li>追梦人</li>
+                        <li>行成于思</li>
+                        <li>凉茶当可乐</li>
+                        <li>板车</li>
+                        <li>我来组成头部</li>
+                        <li>kym01</li>
+                    </ul>
+                </div>
+                <div class="thanks-column">
+                    <h4>感谢以下网站支持</h4>
+                    <p style="margin-bottom: 20px; color: var(--gray);">(如有遗漏，请和我联系)</p>
+                    <ul class="thanks-list">
+                        <li>夜雨聆风</li>
+                        <li>方圆小棉袄</li>
+                        <li>刘阿五</li>
+                        <li>AI绘画精选干货</li>
+                        <li>微机杂谈</li>
+                        <li>阁中软件</li>
+                        <li>电视指南网</li>
+                        <li>季彡</li>
+                        <li>废柴公社</li>
+                        <li>PC6</li>
+                        <li>KK下载</li>
+                        <li>脚本之家</li>
+                        <li>云骑士</li>
+                        <li>系统之家</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 50px;">
+                <p style="font-size: 18px; color: var(--gray); max-width: 800px; margin: 0 auto;">
+                    123浏览器自发布以来，我们收到了很多网友反馈bug、提供建议；也有很多网友自发地发表文章、帖子帮我们宣传123浏览器，我们在此一并表示感谢，谢谢你们！
+                </p>
+                <p style="font-size: 16px; color: var(--gray); margin-top: 30px;">
+                    感谢您访问我们的网站。祝您使用愉快！
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>产品</h4>
+                    <ul>
+                        <li><a href="#">功能</a></li>
+                        <li><a href="#">下载</a></li>
+                        <li><a href="#">更新日志</a></li>
+                        <li><a href="#">路线图</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>支持</h4>
+                    <ul>
+                        <li><a href="#">帮助中心</a></li>
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">社区论坛</a></li>
+                        <li><a href="#">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>公司</h4>
+                    <ul>
+                        <li><a href="#">关于我们</a></li>
+                        <li><a href="#">博客</a></li>
+                        <li><a href="#">工作机会</a></li>
+                        <li><a href="#">媒体资料</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>法律</h4>
+                    <ul>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">服务条款</a></li>
+                        <li><a href="#">Cookie政策</a></li>
+                        <li><a href="#">版权信息</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>版权所有 © 2025 The 123browser Authors。保留所有权利。</p>
+                <p>123browser 的诞生离不开 Chromium 开放源代码项目以及其他开放源代码软件。</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
